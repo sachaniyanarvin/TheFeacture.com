@@ -24,7 +24,14 @@ export default function Page() {
     },
   );
 
-  const { update: updateSession } = useSession();
+  const { update: updateSession, status } = useSession();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/');
+    }
+  }, [status, router]);
 
   useEffect(() => {
     if (state.status === 'failed') {
